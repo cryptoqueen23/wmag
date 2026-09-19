@@ -30,6 +30,14 @@ Then open `http://localhost:4321/admin/` — `local_backend: true` in `public/ad
 
 Production editing at `wmag.pages.dev/admin/` authenticates through the OAuth worker shared with CenTex Press (`cryptoqueen23/CenTexPress`, `workers/cms-auth`) — it's a generic GitHub OAuth proxy, not CenTex-specific, gated only by an allowlist var on that worker. Don't deploy a second one for this project; if a third Sveltia-backed site ever needs auth, add its domain to that worker's `ALLOWED_DOMAINS` instead.
 
+## Publishing pipeline
+
+```
+Sveltia (/admin/) → commit to main on GitHub → Cloudflare Pages builds → wmag.pages.dev
+```
+
+The Cloudflare Pages project is Git-connected (not a manual/direct-upload deploy) — a push to `main` builds and deploys automatically with no local `wrangler` step. Non-`main` branches and pull requests get their own preview deployments, left at Cloudflare's default so preview behavior doesn't collide with production.
+
 ## Design system
 
 Global styles and the editorial component vocabulary (`StoryCard`, `StoryRail`, `PullQuote`, `EditorialTriptych`, `PortraitFeature`) live in `src/styles/global.css` and `src/components/`. Reuse these rather than hand-rolling new card grids — the goal is a reusable editorial vocabulary, not a single repeated template.
