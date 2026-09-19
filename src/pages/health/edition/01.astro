@@ -1,0 +1,37 @@
+---
+import Base from "../../../layouts/Base.astro";
+const pages = [
+  {type:"cover", n:"01", kicker:"WMag Health · Edition 01", title:"THE WOMAN’S BODY", copy:"What medicine knows. What women know. And where the two still don’t meet."},
+  {type:"contents", n:"02", kicker:"Inside", title:"CONTENTS", items:["08  Why Women Aren’t Being Heard","22  The Lupus Problem","34  What the Hell Is Happening to My Body?","46  You Don’t Have to Just Live With It","58  A Woman’s Heart","70  Who Profits From Women’s Wellness?"]},
+  {type:"editor", n:"03", kicker:"From the Editor", title:"SHE KNOWS HER BODY", copy:"Positively Lupus was the beginning. WMag Health is what comes next. We’re here to help women understand their bodies, read the evidence, and ask better questions about their care."},
+  {type:"feature", n:"08", kicker:"Cover Story", title:"WHY WOMEN AREN’T BEING HEARD", copy:"The symptoms are real. The answers are not always simple. We look at diagnostic delay, medical uncertainty, and what better conversations between women and clinicians can look like."},
+  {type:"feature dark", n:"22", kicker:"Autoimmune", title:"THE LUPUS PROBLEM", copy:"Lupus can look like many illnesses before it looks like itself. A clear-eyed guide to symptoms, testing, uncertainty, and the long road some patients travel toward a diagnosis."},
+  {type:"feature", n:"34", kicker:"Hormones", title:"WHAT THE HELL IS HAPPENING TO MY BODY?", copy:"Perimenopause without the mythology. What may be hormonal, what may not be, and which questions belong in the exam room."},
+  {type:"feature", n:"46", kicker:"Pelvic Health", title:"YOU DON’T HAVE TO JUST LIVE WITH IT", copy:"Bladder leakage is common. That does not mean women have to accept it in silence. Pelvic-floor therapy, evaluation, and when procedures enter the conversation."},
+  {type:"feature dark", n:"70", kicker:"Investigation", title:"WHO PROFITS FROM WOMEN’S WELLNESS?", copy:"Supplements. Tests. Subscriptions. Influencers. An enormous industry has learned how to monetize women’s uncertainty about their own bodies."},
+  {type:"back", n:"80", kicker:"The Last Word", title:"SHE KNOWS HER BODY", copy:"Knowledge is not self-diagnosis. Curiosity is not hysteria. Ask the question. Read the evidence. Keep listening to your body."}
+];
+---
+<Base title="WMag Health · Edition 01">
+  <div class="mag-shell">
+    <div class="mag-top"><div><b>WMAG</b> HEALTH</div><div>EDITION 01 · 2026</div></div>
+    <div class="book" id="book" aria-label="WMag Health Edition 01">
+      {pages.map((p,i)=><article class:list={["mag-page",p.type,i===0&&"active"]} data-index={i}>
+        <span class="page-no">{p.n}</span><div class="page-inner"><div class="mag-kicker">{p.kicker}</div><h1>{p.title}</h1>
+        {p.copy&&<p>{p.copy}</p>}{p.items&&<ol>{p.items.map(x=><li>{x}</li>)}</ol>}
+        {i===0&&<div class="cover-mark">WMAG<br/><span>HEALTH</span></div>}</div>
+      </article>)}
+    </div>
+    <div class="mag-controls"><button id="prev" aria-label="Previous page">← PREV</button><span id="counter">01 / {String(pages.length).padStart(2,"0")}</span><button id="next" aria-label="Next page">NEXT →</button></div>
+    <p class="mag-hint">Click the page edge, use the buttons, or press ← →. Swipe on mobile.</p>
+  </div>
+  <script is:inline>
+    const book=document.querySelector('#book'), pages=[...book.querySelectorAll('.mag-page')], counter=document.querySelector('#counter');
+    let current=0, startX=0;
+    const show=(n,dir=1)=>{if(n<0||n>=pages.length)return; const old=pages[current]; old.classList.remove('active'); old.classList.add(dir>0?'turn-out':'turn-back'); setTimeout(()=>old.classList.remove('turn-out','turn-back'),650); current=n; pages[current].classList.add('active',dir>0?'turn-in':'turn-in-back'); setTimeout(()=>pages[current].classList.remove('turn-in','turn-in-back'),650); counter.textContent=String(current+1).padStart(2,'0')+' / '+String(pages.length).padStart(2,'0');};
+    document.querySelector('#next').onclick=()=>show(current+1,1); document.querySelector('#prev').onclick=()=>show(current-1,-1);
+    book.onclick=e=>show(current+(e.clientX>innerWidth/2?1:-1),e.clientX>innerWidth/2?1:-1);
+    addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(current+1,1);if(e.key==='ArrowLeft')show(current-1,-1)});
+    book.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true}); book.addEventListener('touchend',e=>{let d=e.changedTouches[0].clientX-startX;if(Math.abs(d)>45)show(current+(d<0?1:-1),d<0?1:-1)},{passive:true});
+  </script>
+</Base>
