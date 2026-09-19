@@ -5,7 +5,7 @@ department: "Work"
 contentType: "Essay"
 author: "Editorial Staff"
 publishDate: 2026-09-08
-image: "https://picsum.photos/seed/the-raise-i-almost-didnt-ask-for/1200/1500"
+image: "https://picsum.photos/id/0/1200/1500"
 featured: false
 tags: ["work", "career", "negotiation"]
 ---

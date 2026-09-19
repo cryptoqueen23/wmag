@@ -5,7 +5,7 @@ department: "Wellness"
 contentType: "Interview"
 author: "Editorial Staff"
 publishDate: 2026-09-10
-image: "https://picsum.photos/seed/what-your-doctor-wont-ask/1200/1500"
+image: "https://picsum.photos/id/55/1200/1500"
 featured: false
 issue: "beauty"
 tags: ["wellness", "women's health"]

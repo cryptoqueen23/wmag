@@ -5,7 +5,7 @@ department: "Money"
 contentType: "Guide"
 author: "Editorial Staff"
 publishDate: 2026-09-15
-image: "https://picsum.photos/seed/money-home/1200/1500"
+image: "https://picsum.photos/id/20/1200/1500"
 tags: ["money","family"]
 ---
 The answer starts with arithmetic, not ideology.

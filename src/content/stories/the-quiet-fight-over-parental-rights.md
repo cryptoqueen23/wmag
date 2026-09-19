@@ -5,7 +5,7 @@ department: "Politics"
 contentType: "Explainer"
 author: "Editorial Staff"
 publishDate: 2026-08-29
-image: "https://picsum.photos/seed/the-quiet-fight-over-parental-rights/1200/1500"
+image: "https://picsum.photos/id/193/1200/1500"
 featured: false
 tags: ["politics", "policy", "education"]
 ---

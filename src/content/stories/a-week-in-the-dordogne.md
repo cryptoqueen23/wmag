@@ -5,7 +5,7 @@ department: "Travel"
 contentType: "Feature"
 author: "Editorial Staff"
 publishDate: 2026-09-05
-image: "https://picsum.photos/seed/a-week-in-the-dordogne/1200/1500"
+image: "https://picsum.photos/id/142/1200/1500"
 featured: false
 tags: ["travel", "france", "family travel"]
 ---

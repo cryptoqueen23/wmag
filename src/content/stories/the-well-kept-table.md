@@ -5,7 +5,7 @@ department: "Home"
 contentType: "Guide"
 author: "Editorial Staff"
 publishDate: 2026-09-12
-image: "https://picsum.photos/seed/the-well-kept-table/1200/1500"
+image: "https://picsum.photos/id/90/1200/1500"
 featured: false
 tags: ["home", "hosting", "domestic arts"]
 ---

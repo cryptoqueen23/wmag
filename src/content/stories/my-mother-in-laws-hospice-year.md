@@ -5,7 +5,7 @@ department: "Voices"
 contentType: "Essay"
 author: "Reader Submission"
 publishDate: 2026-08-25
-image: "https://picsum.photos/seed/my-mother-in-laws-hospice-year/1200/1500"
+image: "https://picsum.photos/id/184/1200/1500"
 featured: false
 tags: ["voices", "caregiving", "family"]
 ---
