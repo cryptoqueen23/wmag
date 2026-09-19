@@ -11,16 +11,25 @@ const { title = publication.name, description = publication.description } = Astr
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <header class="site-header">
-      <div class="topline">
-        <span class="edition">{publication.shortName}</span>
-        <div class="utility">Newsletter · Search</div>
+    <header class="masthead-block">
+      <div class="masthead-utility">
+        <a class="mark" href="/" aria-label={`${publication.name} home`}>{publication.shortName}</a>
+        <div class="masthead-actions">
+          <a href="/#newsletter">The Letter</a>
+        </div>
       </div>
-      <a class="masthead" href="/">{publication.name}</a>
-      <nav class="main-nav" aria-label="Primary">
+      <a class="wordmark" href="/">{publication.name}</a>
+      <p class="masthead-tagline">{publication.tagline}</p>
+      <nav class="primary-nav" aria-label="Primary">
         {publication.nav.map((item) => (
           <a href={`/department/${deptSlug(item)}/`}>{item}</a>
         ))}
@@ -28,10 +37,8 @@ const { title = publication.name, description = publication.description } = Astr
     </header>
     <main id="main-content"><slot /></main>
     <footer class="footer">
-      <div>
-        <div class="footer-mark">{publication.name}</div>
-        <p>{publication.tagline}</p>
-      </div>
+      <div class="footer-mark">{publication.name}</div>
+      <p class="footer-tagline">{publication.tagline}</p>
       <div class="footer-links">
         <a href="/about/">About</a>
         <a href={`/department/${deptSlug("Voices")}/`}>Voices</a>

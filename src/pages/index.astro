@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 import { publication } from "../config/publication";
+import Plate from "../components/Plate.astro";
 import StoryCard from "../components/StoryCard.astro";
 import StoryRail from "../components/StoryRail.astro";
 import PullQuote from "../components/PullQuote.astro";
@@ -25,6 +26,8 @@ const portraitIndex = pool.findIndex((s) => s.data.contentType === "Interview");
 const portrait = portraitIndex >= 0 ? pool.splice(portraitIndex, 1)[0] : pool.shift();
 const rail = take(8);
 const secondary = take(4);
+
+const departmentsOf = (list: any[]) => [...new Set(list.map((s) => s.data.department))].join(", ");
 ---
 <Base title={`${publication.name} | ${publication.tagline}`}>
   <section class="hero">
@@ -35,17 +38,17 @@ const secondary = take(4);
       <div class="meta">By {hero?.data.author} · {hero?.data.publishDate.toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</div>
     </div>
     <a class="hero-image" href={`/stories/${hero?.id}/`} aria-label={hero?.data.title}>
-      {hero?.data.image ? <img src={hero.data.image} alt={hero.data.imageAlt ?? ""} /> : <div class="image-placeholder">Editorial photography</div>}
+      <Plate image={hero?.data.image} imageAlt={hero?.data.imageAlt} label={hero?.data.department ?? publication.name} />
     </a>
   </section>
 
-  <div class="section-heading"><h2>Latest</h2><span>Stories worth your time</span></div>
+  <div class="section-heading"><h2>Latest</h2></div>
   <section class="story-grid">
     {picks.map((story, i) => <StoryCard story={story} size={i === 0 ? "large" : "default"} />)}
   </section>
 
   {triptych.length === 3 && (
-    <EditorialTriptych heading="This Week" kicker="Style · Culture · Money" stories={triptych as [any, any, any]} />
+    <EditorialTriptych heading="This Week" kicker={departmentsOf(triptych)} stories={triptych as [any, any, any]} />
   )}
 
   <PullQuote
@@ -57,18 +60,18 @@ const secondary = take(4);
     <div class="issue-kicker">The Issue</div>
     <h2>The Beauty Issue</h2>
     <p>What beauty means now: ritual, pleasure, age, style, confidence and the women redefining all of it.</p>
-    <a href="/issues/beauty/">Explore the issue →</a>
+    <a href="/issues/beauty/">Explore the issue</a>
   </section>
 
   {portrait && <PortraitFeature story={portrait} />}
 
   {rail.length > 0 && (
-    <StoryRail heading="Around the Magazine" kicker="Home · Wellness · Work · Travel" stories={rail} />
+    <StoryRail heading="Around the Magazine" kicker={departmentsOf(rail)} stories={rail} />
   )}
 
   {secondary.length > 0 && (
     <>
-      <div class="section-heading"><h2>Life, fully lived</h2><span>Life · Politics · Faith · Voices</span></div>
+      <div class="section-heading"><h2>Life, Fully Lived</h2></div>
       <section class="editorial-list">
         {secondary.map((story) => (
           <article>
@@ -81,7 +84,7 @@ const secondary = take(4);
     </>
   )}
 
-  <section class="newsletter">
+  <section class="newsletter" id="newsletter">
     <div>
       <div class="eyebrow">The Letter</div>
       <h2>A smarter, more beautiful inbox.</h2>

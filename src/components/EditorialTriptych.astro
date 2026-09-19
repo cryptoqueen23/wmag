@@ -1,4 +1,5 @@
 ---
+import Plate from "./Plate.astro";
 interface Props {
   heading: string;
   kicker?: string;
@@ -14,21 +15,17 @@ const [lead, second, third] = stories;
 <section class="triptych">
   <article class="triptych-lead">
     <a class="card-image" href={`/stories/${lead.id}/`}>
-      {lead.data.image
-        ? <img src={lead.data.image} alt={lead.data.imageAlt ?? ""} />
-        : <div class="image-placeholder">{lead.data.department}</div>}
+      <Plate image={lead.data.image} imageAlt={lead.data.imageAlt} label={lead.data.department} />
     </a>
-    <div class="eyebrow">{lead.data.department} · {lead.data.contentType}</div>
+    <div class="eyebrow">{lead.data.department}</div>
     <h3><a href={`/stories/${lead.id}/`}>{lead.data.title}</a></h3>
     <p>{lead.data.dek}</p>
   </article>
   <article class="triptych-mid">
-    <div class="eyebrow">{second.data.department}</div>
     <h3><a href={`/stories/${second.id}/`}>{second.data.title}</a></h3>
     <p>{second.data.dek}</p>
   </article>
   <article class="triptych-small">
-    <div class="eyebrow">{third.data.department}</div>
     <h3><a href={`/stories/${third.id}/`}>{third.data.title}</a></h3>
   </article>
 </section>

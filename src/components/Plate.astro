@@ -1,0 +1,17 @@
+---
+import { plateFor } from "../lib/palette";
+interface Props {
+  image?: string;
+  imageAlt?: string;
+  label: string;
+}
+const { image, imageAlt, label } = Astro.props;
+const c = plateFor(label);
+---
+{image ? (
+  <img src={image} alt={imageAlt ?? ""} />
+) : (
+  <div class="plate" style={`--plate-from:${c.from};--plate-to:${c.to}`}>
+    <span class="plate-label">{label}</span>
+  </div>
+)}
