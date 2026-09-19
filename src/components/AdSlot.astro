@@ -1,0 +1,33 @@
+---
+import { resolveSlot } from "../lib/promotionEngine";
+import type { AdSlotId, Campaign } from "../config/ads";
+
+interface Props {
+  // Named "slotId", not "slot" — "slot" is a reserved Astro attribute for
+  // named-slot content projection and silently swallows the component
+  // instead of passing it as a prop.
+  slotId: AdSlotId;
+  department?: string;
+}
+const { slotId, department } = Astro.props;
+const campaign = resolveSlot(slotId, { department });
+
+// Advertising and editorial stay structurally separate — the disclosure
+// label is always type-driven, never campaign copy, so a sponsor can't
+// quietly read as an editorial recommendation.
+const DISCLOSURE: Record<Campaign["type"], string> = {
+  sponsor: "Advertisement",
+  affiliate: "In Partnership With",
+  house: "From the Magazine"
+};
+---
+{campaign && (
+  <aside class="ad-slot">
+    <span class="ad-slot-label">{DISCLOSURE[campaign.type]}</span>
+    <a class="ad-slot-body" href={campaign.destinationUrl}>
+      <span class="ad-slot-headline">{campaign.headline}</span>
+      {campaign.body && <span class="ad-slot-copy">{campaign.body}</span>}
+      <span class="ad-slot-cta">{campaign.cta}</span>
+    </a>
+  </aside>
+)}

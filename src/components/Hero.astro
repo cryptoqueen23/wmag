@@ -1,0 +1,21 @@
+---
+import Plate from "./Plate.astro";
+interface Props {
+  story: any;
+}
+const { story } = Astro.props;
+const treatment = story?.data.heroTreatment ?? "full-bleed";
+const focal = story?.data.imageFocalPoint;
+const dateLabel = story?.data.publishDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+---
+<section class:list={["hero", `hero-${treatment}`]}>
+  <div class="hero-media" style={focal ? `--focal:${focal}` : undefined}>
+    <Plate image={story?.data.image} imageAlt={story?.data.imageAlt} label={story?.data.department ?? ""} />
+  </div>
+  <div class="hero-copy">
+    <div class="eyebrow">{story?.data.department} · {story?.data.contentType}</div>
+    <h1><a href={`/stories/${story?.id}/`}>{story?.data.title}</a></h1>
+    <p class="dek">{story?.data.dek}</p>
+    <div class="meta">By {story?.data.author} · {dateLabel}</div>
+  </div>
+</section>

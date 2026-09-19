@@ -16,6 +16,8 @@ const stories = defineCollection({
     featured: z.boolean().default(false),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    imageFocalPoint: z.string().optional(),
+    heroTreatment: z.enum(["full-bleed", "split", "stacked", "offset"]).optional(),
     issue: z.string().optional(),
     tags: z.array(z.string()).default([])
   })

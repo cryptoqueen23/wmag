@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 import { publication } from "../config/publication";
-import Plate from "../components/Plate.astro";
+import Hero from "../components/Hero.astro";
 import FeatureOverlay from "../components/FeatureOverlay.astro";
 import StoryRail from "../components/StoryRail.astro";
 import PullQuote from "../components/PullQuote.astro";
@@ -30,17 +30,7 @@ const secondary = take(4);
 const departmentsOf = (list: any[]) => [...new Set(list.map((s) => s.data.department))].join(", ");
 ---
 <Base title={`${publication.name} | ${publication.tagline}`}>
-  <section class="hero">
-    <div class="hero-media">
-      <Plate image={hero?.data.image} imageAlt={hero?.data.imageAlt} label={hero?.data.department ?? publication.name} />
-    </div>
-    <div class="hero-copy">
-      <div class="eyebrow">{hero?.data.department} · {hero?.data.contentType}</div>
-      <h1><a href={`/stories/${hero?.id}/`}>{hero?.data.title}</a></h1>
-      <p class="dek">{hero?.data.dek}</p>
-      <div class="meta">By {hero?.data.author} · {hero?.data.publishDate.toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</div>
-    </div>
-  </section>
+  <Hero story={hero} />
 
   <div class="section-heading"><h2>Latest</h2></div>
   <section class="feature-spread">
