@@ -5,6 +5,7 @@ department: "Life"
 contentType: "Longform"
 author: "Editorial Staff"
 publishDate: 2026-09-02
+image: "https://picsum.photos/seed/the-mothers-who-carry-the-grief-alone/1200/1500"
 featured: false
 tags: ["life", "grief", "motherhood"]
 ---

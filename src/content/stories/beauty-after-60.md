@@ -5,6 +5,7 @@ department: "Beauty"
 contentType: "Interview"
 author: "Editorial Staff"
 publishDate: 2026-09-17
+image: "https://picsum.photos/seed/beauty-after-60/1200/1500"
 issue: "beauty"
 tags: ["beauty","age"]
 ---

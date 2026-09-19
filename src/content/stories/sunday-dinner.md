@@ -5,6 +5,7 @@ department: "Food"
 contentType: "Essay"
 author: "Editorial Staff"
 publishDate: 2026-09-18
+image: "https://picsum.photos/seed/sunday-dinner/1200/1500"
 tags: ["home","food","family"]
 ---
 The point of Sunday dinner is not perfection. It is repetition.

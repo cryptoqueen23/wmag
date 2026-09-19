@@ -5,6 +5,7 @@ department: "Culture"
 contentType: "Feature"
 author: "Editorial Staff"
 publishDate: 2026-09-19
+image: "https://picsum.photos/seed/feminine/1200/1500"
 featured: true
 tags: ["femininity","culture"]
 ---
