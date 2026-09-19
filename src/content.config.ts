@@ -1,12 +1,16 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const stories = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/stories" }),
   schema: z.object({
     title: z.string(),
     dek: z.string(),
     department: z.string(),
-    contentType: z.enum(["Feature","Essay","Guide","Review","News","Explainer","Analysis","Opinion","Interview"]),
+    contentType: z.enum([
+      "News","Feature","Longform","Interview","Essay","Explainer",
+      "Analysis","Opinion","Guide","Review","Recipe","Shopping Edit","Photo Essay"
+    ]),
     author: z.string(),
     publishDate: z.coerce.date(),
     featured: z.boolean().default(false),

@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { publication } from "../config/publication";
+import { deptSlug } from "../lib/slug";
 const { title = publication.name, description = publication.description } = Astro.props;
 ---
 <!doctype html>
@@ -12,19 +13,20 @@ const { title = publication.name, description = publication.description } = Astr
     <title>{title}</title>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="site-header">
       <div class="topline">
-        <a class="edition" href="/">WOMEN</a>
+        <span class="edition">{publication.shortName}</span>
         <div class="utility">Newsletter · Search</div>
       </div>
       <a class="masthead" href="/">{publication.name}</a>
       <nav class="main-nav" aria-label="Primary">
         {publication.nav.map((item) => (
-          <a href={`/department/${item.toLowerCase().replaceAll(" ","-").replaceAll("&","and")}/`}>{item}</a>
+          <a href={`/department/${deptSlug(item)}/`}>{item}</a>
         ))}
       </nav>
     </header>
-    <main><slot /></main>
+    <main id="main-content"><slot /></main>
     <footer class="footer">
       <div>
         <div class="footer-mark">{publication.name}</div>
@@ -32,7 +34,7 @@ const { title = publication.name, description = publication.description } = Astr
       </div>
       <div class="footer-links">
         <a href="/about/">About</a>
-        <a href="/voices/">Voices</a>
+        <a href={`/department/${deptSlug("Voices")}/`}>Voices</a>
         <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>
       </div>

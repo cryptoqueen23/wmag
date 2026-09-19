@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import StoryCard from "../../components/StoryCard.astro";
+
+export async function getStaticPaths() {
+  const stories = await getCollection("stories");
+  const issues = [...new Set(stories.map((s) => s.data.issue).filter(Boolean))] as string[];
+  return issues.map((issue) => ({
+    params: { issue },
+    props: {
+      issue,
+      stories: stories.filter((s) => s.data.issue === issue)
+    }
+  }));
+}
+
+const { issue, stories } = Astro.props;
+const title = `The ${issue[0].toUpperCase()}${issue.slice(1)} Issue`;
+---
+<Base title={`${title} | Issues`} description={`Stories from ${title}.`}>
+  <section class="issue-band">
+    <div class="issue-kicker">The Issue</div>
+    <h1>{title}</h1>
+  </section>
+  <div class="section-heading"><h2>In This Issue</h2><span>{stories.length} stories</span></div>
+  <section class="story-grid">
+    {stories.map((story: any, i: number) => <StoryCard story={story} size={i === 0 ? "large" : "default"} />)}
+  </section>
+</Base>

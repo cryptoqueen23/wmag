@@ -5,6 +5,7 @@ department: "Beauty"
 contentType: "Interview"
 author: "Editorial Staff"
 publishDate: 2026-09-17
+issue: "beauty"
 tags: ["beauty","age"]
 ---
 Aging changes the face. It does not end the pleasure of beauty.

@@ -1,0 +1,45 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { publication } from "../../config/publication";
+import { deptSlug } from "../../lib/slug";
+import StoryCard from "../../components/StoryCard.astro";
+
+export async function getStaticPaths() {
+  return publication.nav.map((department) => ({
+    params: { dept: deptSlug(department) },
+    props: { department }
+  }));
+}
+
+const { department } = Astro.props;
+const stories = (await getCollection("stories"))
+  .filter((s) => s.data.department === department)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+const [lead, ...rest] = stories;
+---
+<Base title={`${department} | ${publication.name}`} description={`${department} coverage from ${publication.name}.`}>
+  <div class="section-heading"><h1>{department}</h1><span>{stories.length} {stories.length === 1 ? "story" : "stories"}</span></div>
+
+  {lead ? (
+    <>
+      <section class="story-grid">
+        <StoryCard story={lead} size="large" />
+        {rest.slice(0, 3).map((story) => <StoryCard story={story} />)}
+      </section>
+      {rest.length > 3 && (
+        <section class="editorial-list">
+          {rest.slice(3).map((story) => (
+            <article>
+              <div class="eyebrow">{story.data.contentType}</div>
+              <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
+              <p>{story.data.dek}</p>
+            </article>
+          ))}
+        </section>
+      )}
+    </>
+  ) : (
+    <p class="empty-department">New {department} coverage is on the way.</p>
+  )}
+</Base>

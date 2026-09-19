@@ -19,5 +19,10 @@ export const publication = {
     "Life",
     "Politics",
     "Voices"
-  ]
+  ],
+  contact: {
+    editorial: "editors@example.com",
+    advertising: "advertising@example.com",
+    corrections: "corrections@example.com"
+  }
 } as const;

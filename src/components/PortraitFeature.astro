@@ -1,0 +1,19 @@
+---
+interface Props {
+  story: any;
+}
+const { story } = Astro.props;
+---
+<section class="portrait-feature">
+  <a class="portrait-image" href={`/stories/${story.id}/`}>
+    {story.data.image
+      ? <img src={story.data.image} alt={story.data.imageAlt ?? ""} />
+      : <div class="image-placeholder">Portrait</div>}
+  </a>
+  <div class="portrait-copy">
+    <div class="eyebrow">{story.data.department} · {story.data.contentType}</div>
+    <h2><a href={`/stories/${story.id}/`}>{story.data.title}</a></h2>
+    <p class="dek">{story.data.dek}</p>
+    <div class="meta">By {story.data.author}</div>
+  </div>
+</section>

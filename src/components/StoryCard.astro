@@ -1,0 +1,17 @@
+---
+interface Props {
+  story: any;
+  size?: "default" | "large" | "small";
+}
+const { story, size = "default" } = Astro.props;
+---
+<article class:list={["card", size === "large" && "card-large", size === "small" && "card-small"]}>
+  <a class="card-image" href={`/stories/${story.id}/`}>
+    {story.data.image
+      ? <img src={story.data.image} alt={story.data.imageAlt ?? ""} />
+      : <div class="image-placeholder">{story.data.department}</div>}
+  </a>
+  <div class="eyebrow">{story.data.department}</div>
+  <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
+  <p>{story.data.dek}</p>
+</article>

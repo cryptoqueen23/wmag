@@ -2,14 +2,29 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 import { publication } from "../config/publication";
+import StoryCard from "../components/StoryCard.astro";
+import StoryRail from "../components/StoryRail.astro";
+import PullQuote from "../components/PullQuote.astro";
+import EditorialTriptych from "../components/EditorialTriptych.astro";
+import PortraitFeature from "../components/PortraitFeature.astro";
 
 const stories = (await getCollection("stories")).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
 const hero = stories.find((s) => s.data.featured) ?? stories[0];
-const latest = stories.filter((s) => s.id !== hero?.id);
-const picks = latest.slice(0, 4);
-const secondary = latest.slice(4, 8);
+let pool = stories.filter((s) => s.id !== hero?.id);
+const take = (n: number) => {
+  const chunk = pool.slice(0, n);
+  pool = pool.slice(n);
+  return chunk;
+};
+
+const picks = take(4);
+const triptych = take(3);
+const portraitIndex = pool.findIndex((s) => s.data.contentType === "Interview");
+const portrait = portraitIndex >= 0 ? pool.splice(portraitIndex, 1)[0] : pool.shift();
+const rail = take(8);
+const secondary = take(4);
 ---
 <Base title={`${publication.name} | ${publication.tagline}`}>
   <section class="hero">
@@ -26,17 +41,17 @@ const secondary = latest.slice(4, 8);
 
   <div class="section-heading"><h2>Latest</h2><span>Stories worth your time</span></div>
   <section class="story-grid">
-    {picks.map((story, i) => (
-      <article class:list={["card", i === 0 && "card-large"]}>
-        <a class="card-image" href={`/stories/${story.id}/`}>
-          {story.data.image ? <img src={story.data.image} alt={story.data.imageAlt ?? ""} /> : <div class="image-placeholder">Image</div>}
-        </a>
-        <div class="eyebrow">{story.data.department}</div>
-        <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
-        <p>{story.data.dek}</p>
-      </article>
-    ))}
+    {picks.map((story, i) => <StoryCard story={story} size={i === 0 ? "large" : "default"} />)}
   </section>
+
+  {triptych.length === 3 && (
+    <EditorialTriptych heading="This Week" kicker="Style · Culture · Money" stories={triptych as [any, any, any]} />
+  )}
+
+  <PullQuote
+    quote="Traditional womanhood, done well, has never meant helplessness. It has meant competence in service of the people you love."
+    attribution="From the editors"
+  />
 
   <section class="issue-band">
     <div class="issue-kicker">The Issue</div>
@@ -45,25 +60,36 @@ const secondary = latest.slice(4, 8);
     <a href="/issues/beauty/">Explore the issue →</a>
   </section>
 
-  <div class="section-heading"><h2>Life, fully lived</h2><span>Home · Money · Culture · Faith</span></div>
-  <section class="editorial-list">
-    {secondary.map((story) => (
-      <article>
-        <div class="eyebrow">{story.data.department}</div>
-        <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
-        <p>{story.data.dek}</p>
-      </article>
-    ))}
-  </section>
+  {portrait && <PortraitFeature story={portrait} />}
+
+  {rail.length > 0 && (
+    <StoryRail heading="Around the Magazine" kicker="Home · Wellness · Work · Travel" stories={rail} />
+  )}
+
+  {secondary.length > 0 && (
+    <>
+      <div class="section-heading"><h2>Life, fully lived</h2><span>Life · Politics · Faith · Voices</span></div>
+      <section class="editorial-list">
+        {secondary.map((story) => (
+          <article>
+            <div class="eyebrow">{story.data.department}</div>
+            <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
+            <p>{story.data.dek}</p>
+          </article>
+        ))}
+      </section>
+    </>
+  )}
 
   <section class="newsletter">
     <div>
       <div class="eyebrow">The Letter</div>
       <h2>A smarter, more beautiful inbox.</h2>
-      <p>Editors’ picks, thoughtful essays, useful things and the stories women are actually talking about.</p>
+      <p>Editors' picks, thoughtful essays, useful things and the stories women are actually talking about.</p>
     </div>
     <form>
-      <input type="email" placeholder="Email address" aria-label="Email address" />
+      <label class="sr-only" for="newsletter-email">Email address</label>
+      <input id="newsletter-email" type="email" placeholder="Email address" required />
       <button type="submit">Subscribe</button>
     </form>
   </section>

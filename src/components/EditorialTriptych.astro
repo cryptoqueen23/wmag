@@ -1,0 +1,34 @@
+---
+interface Props {
+  heading: string;
+  kicker?: string;
+  stories: [any, any, any];
+}
+const { heading, kicker, stories } = Astro.props;
+const [lead, second, third] = stories;
+---
+<div class="section-heading">
+  <h2>{heading}</h2>
+  {kicker && <span>{kicker}</span>}
+</div>
+<section class="triptych">
+  <article class="triptych-lead">
+    <a class="card-image" href={`/stories/${lead.id}/`}>
+      {lead.data.image
+        ? <img src={lead.data.image} alt={lead.data.imageAlt ?? ""} />
+        : <div class="image-placeholder">{lead.data.department}</div>}
+    </a>
+    <div class="eyebrow">{lead.data.department} · {lead.data.contentType}</div>
+    <h3><a href={`/stories/${lead.id}/`}>{lead.data.title}</a></h3>
+    <p>{lead.data.dek}</p>
+  </article>
+  <article class="triptych-mid">
+    <div class="eyebrow">{second.data.department}</div>
+    <h3><a href={`/stories/${second.id}/`}>{second.data.title}</a></h3>
+    <p>{second.data.dek}</p>
+  </article>
+  <article class="triptych-small">
+    <div class="eyebrow">{third.data.department}</div>
+    <h3><a href={`/stories/${third.id}/`}>{third.data.title}</a></h3>
+  </article>
+</section>

@@ -1,0 +1,16 @@
+---
+import StoryCard from "./StoryCard.astro";
+interface Props {
+  heading: string;
+  kicker?: string;
+  stories: any[];
+}
+const { heading, kicker, stories } = Astro.props;
+---
+<div class="section-heading">
+  <h2>{heading}</h2>
+  {kicker && <span>{kicker}</span>}
+</div>
+<section class="story-rail">
+  {stories.map((story) => <StoryCard story={story} size="small" />)}
+</section>

@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import { publication } from "../config/publication";
+---
+<Base title={`Privacy Policy | ${publication.name}`} description={`Privacy policy for ${publication.name}.`}>
+  <article class="article">
+    <header class="article-header">
+      <div class="eyebrow">Privacy</div>
+      <h1>Privacy Policy</h1>
+      <p class="article-dek">Placeholder policy — replace with counsel-reviewed language before launch.</p>
+    </header>
+    <div class="prose">
+      <p>
+        {publication.name} respects your privacy. This placeholder policy will be
+        replaced with a full, counsel-reviewed privacy policy covering newsletter
+        subscriptions, analytics, cookies and advertising partners before public
+        launch.
+      </p>
+      <p>Contact {publication.contact.editorial} with privacy questions in the meantime.</p>
+    </div>
+  </article>
+</Base>

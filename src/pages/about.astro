@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import { publication } from "../config/publication";
+---
+<Base title={`About | ${publication.name}`} description={publication.description}>
+  <article class="article">
+    <header class="article-header">
+      <div class="eyebrow">About</div>
+      <h1>{publication.name}</h1>
+      <p class="article-dek">{publication.tagline}</p>
+    </header>
+    <div class="prose">
+      <p>{publication.description}</p>
+      <p>
+        We write for women who take every part of their lives seriously — beauty and
+        money, lipstick and theology, marriage and careers, recipes and politics,
+        motherhood and ambition, home and the wider world. Traditional womanhood, to
+        us, means competence rather than helplessness: a woman equally at home hosting
+        a dinner party, reading a balance sheet or holding a difficult conversation.
+      </p>
+      <p>
+        Our reporting distinguishes clearly between news, analysis and opinion. Where
+        AI assists our editorial process, that involvement is disclosed — we do not
+        fabricate bylines or credentials.
+      </p>
+    </div>
+  </article>
+</Base>

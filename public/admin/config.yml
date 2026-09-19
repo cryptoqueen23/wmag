@@ -1,0 +1,76 @@
+# Sveltia CMS config — git-backed editorial workflow, no database.
+#
+# Before this works in production you need a tiny OAuth provider so editors can
+# sign in with GitHub (Sveltia CMS does not talk to GitHub's OAuth directly from
+# the browser). The standard zero-cost option is a Cloudflare Worker such as
+# https://github.com/sveltia/sveltia-cms-auth — deploy it, then set base_url
+# below to that worker's URL. Until that's deployed, run the CMS locally against
+# the `local_backend` option (see README) instead of `/admin/` in production.
+
+backend:
+  name: github
+  repo: cryptoqueen23/wmag
+  branch: main
+  # base_url: https://your-oauth-worker.workers.dev
+
+local_backend: true
+
+media_folder: "public/images/stories"
+public_folder: "/images/stories"
+
+collections:
+  - name: stories
+    label: Stories
+    label_singular: Story
+    folder: src/content/stories
+    create: true
+    slug: "{{slug}}"
+    format: frontmatter
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Dek, name: dek, widget: text, hint: "One-sentence summary shown on cards and in search results." }
+      - label: Department
+        name: department
+        widget: select
+        options:
+          - Style
+          - Beauty
+          - Home
+          - Food
+          - Wellness
+          - "Love & Family"
+          - Money
+          - Work
+          - Travel
+          - Culture
+          - Faith
+          - Life
+          - Politics
+          - Voices
+      - label: Content Type
+        name: contentType
+        widget: select
+        hint: "News/Explainer/Analysis/Opinion are distinct — keep reporting and argument clearly separated."
+        options:
+          - News
+          - Feature
+          - Longform
+          - Interview
+          - Essay
+          - Explainer
+          - Analysis
+          - Opinion
+          - Guide
+          - Review
+          - Recipe
+          - "Shopping Edit"
+          - "Photo Essay"
+      - { label: Author, name: author, widget: string }
+      - { label: Publish Date, name: publishDate, widget: datetime }
+      - { label: Featured on Homepage, name: featured, widget: boolean, default: false }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: Image Alt Text, name: imageAlt, widget: string, required: false, hint: "Required for accessibility if an image is set." }
+      - { label: Issue, name: issue, widget: string, required: false, hint: "e.g. beauty — links this story to a themed issue package." }
+      - { label: Tags, name: tags, widget: list, required: false, default: [] }
+      - { label: Body, name: body, widget: markdown }
