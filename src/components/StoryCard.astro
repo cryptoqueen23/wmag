@@ -10,7 +10,6 @@ const { story, size = "default" } = Astro.props;
   <a class="card-image" href={`/stories/${story.id}/`}>
     <Plate image={story.data.image} imageAlt={story.data.imageAlt} label={story.data.department} />
   </a>
-  {size !== "small" && <div class="eyebrow">{story.data.department}</div>}
   <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
   <p>{story.data.dek}</p>
 </article>

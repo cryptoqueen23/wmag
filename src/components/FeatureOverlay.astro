@@ -1,0 +1,16 @@
+---
+import Plate from "./Plate.astro";
+interface Props {
+  story: any;
+}
+const { story } = Astro.props;
+---
+<a class="feature-overlay" href={`/stories/${story.id}/`}>
+  <div class="feature-overlay-media">
+    <Plate image={story.data.image} imageAlt={story.data.imageAlt} label={story.data.department} />
+  </div>
+  <div class="feature-overlay-copy">
+    <div class="eyebrow">{story.data.department}</div>
+    <h3>{story.data.title}</h3>
+  </div>
+</a>

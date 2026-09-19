@@ -40,20 +40,25 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 
 main{padding:0 5vw}
 
-/* Hero */
-.hero{display:grid;grid-template-columns:1fr 1.15fr;gap:0 5vw;align-items:center;padding:64px 0 84px}
-.hero-copy{max-width:520px}
+/* Hero — full-bleed, text overlaid on the photograph */
 .eyebrow{font:italic 500 18px var(--font-display);color:var(--aubergine);margin-bottom:16px}
-.hero h1{font-size:clamp(40px,5vw,72px);line-height:.98;letter-spacing:-.02em;font-weight:600;margin:0 0 22px}
+.hero{position:relative;display:flex;align-items:flex-end;min-height:88vh;margin:0 -5vw 88px;overflow:hidden}
+.hero-media{position:absolute;inset:0}
+.hero-media img,.hero-media .plate{height:100%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,15,11,.92) 0%,rgba(20,15,11,.84) 28%,rgba(20,15,11,.35) 55%,rgba(20,15,11,0) 80%)}
+.hero-copy{position:relative;z-index:2;max-width:760px;padding:0 6vw 6vw;color:var(--paper)}
+.hero-copy .eyebrow{color:var(--gold)}
+.hero h1{font-size:clamp(42px,6vw,84px);line-height:.98;letter-spacing:-.02em;font-weight:600;margin:0 0 20px;color:var(--paper)}
 .dek{font-size:clamp(18px,1.6vw,22px);line-height:1.4;color:var(--muted);max-width:480px}
+.hero-copy .dek{color:rgba(246,241,231,.88);max-width:620px}
 .meta{font:500 13px var(--font-sans);color:var(--muted);margin-top:20px}
-.hero-image{display:block;aspect-ratio:4/5}
+.hero-copy .meta{color:rgba(246,241,231,.72)}
 
 .section-heading{padding:0 0 28px}
 .section-heading h2{font-size:32px;font-weight:600;letter-spacing:-.01em;margin:0}
 .section-heading span{font:500 13px var(--font-sans);color:var(--muted)}
 
-/* Story grid */
+/* Story grid — used on department/issue pages */
 .story-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px 26px;padding:0 0 88px}
 .card-large{grid-column:span 2}
 .card-image{display:block;aspect-ratio:4/5;margin-bottom:16px}
@@ -61,6 +66,22 @@ main{padding:0 5vw}
 .card h3{font-size:24px;font-weight:600;line-height:1.08;margin:0 0 8px}
 .card-large h3{font-size:38px}
 .card p{color:var(--muted);line-height:1.45;font-size:16px;margin:0}
+
+/* Feature spread — one dominant overlay feature beside a terse index list */
+.feature-spread{display:grid;grid-template-columns:1.7fr 1fr;gap:48px;padding:0 0 88px}
+.feature-overlay{position:relative;display:block;min-height:560px;overflow:hidden}
+.feature-overlay-media{position:absolute;inset:0}
+.feature-overlay-media img,.feature-overlay-media .plate{height:100%}
+.feature-overlay::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,15,11,.9) 0%,rgba(20,15,11,.8) 32%,rgba(20,15,11,0) 72%)}
+.feature-overlay-copy{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:36px;color:var(--paper)}
+.feature-overlay-copy .eyebrow{color:var(--gold);margin-bottom:10px}
+.feature-overlay-copy h3{font-size:clamp(26px,2.6vw,38px);font-weight:600;line-height:1.06;margin:0;color:var(--paper)}
+
+.index-rail{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center}
+.index-rail li{border-top:1px solid var(--rule)}
+.index-rail li:last-child{border-bottom:1px solid var(--rule)}
+.index-rail a{display:block;padding:20px 0;font-size:19px;font-weight:600;line-height:1.3}
+.index-rail a:hover{color:var(--aubergine)}
 
 /* Pull quote — a considered moment, not a boxed op-ed rule */
 .pull-quote{background:var(--ink);color:var(--paper);padding:88px 8vw;margin:0 -5vw 88px;text-align:center}
@@ -130,9 +151,11 @@ main{padding:0 5vw}
 .prose p:first-child:first-letter{float:left;font-family:var(--font-display);font-weight:600;font-size:76px;line-height:.78;padding-right:10px;padding-top:8px;color:var(--aubergine)}
 
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;gap:32px}
+  .hero{min-height:70vh}
   .story-grid{grid-template-columns:1fr 1fr}
   .card-large{grid-column:span 2}
+  .feature-spread{grid-template-columns:1fr}
+  .feature-overlay{min-height:420px}
   .triptych{grid-template-columns:1fr 1fr}
   .triptych-small{grid-column:span 2}
   .portrait-feature{grid-template-columns:1fr;gap:32px}
@@ -144,6 +167,8 @@ main{padding:0 5vw}
   main{padding:0 20px}
   .masthead-block{padding:18px 20px 0}
   .wordmark{font-size:52px}
+  .hero,.feature-overlay{margin-left:-20px;margin-right:-20px}
+  .hero-copy{padding:0 24px 32px}
   .story-grid{grid-template-columns:1fr}
   .card-large{grid-column:auto}
   .triptych{grid-template-columns:1fr}
