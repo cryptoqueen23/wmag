@@ -85,10 +85,9 @@ const departmentsOf = (list: any[]) => [...new Set(list.map((s) => s.data.depart
       <h2>A smarter, more beautiful inbox.</h2>
       <p>Editors' picks, thoughtful essays, useful things and the stories women are actually talking about.</p>
     </div>
-    <form>
-      <label class="sr-only" for="newsletter-email">Email address</label>
-      <input id="newsletter-email" type="email" placeholder="Email address" required />
-      <button type="submit">Subscribe</button>
-    </form>
+    <div class="newsletter-unavailable" role="status">
+      <p>Sign-up is launching soon.</p>
+      <p class="newsletter-fineprint">We're not collecting email addresses yet — nothing entered here would go anywhere. Check back shortly.</p>
+    </div>
   </section>
 </Base>

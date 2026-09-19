@@ -1,17 +1,18 @@
 # Sveltia CMS config — git-backed editorial workflow, no database.
 #
-# Before this works in production you need a tiny OAuth provider so editors can
-# sign in with GitHub (Sveltia CMS does not talk to GitHub's OAuth directly from
-# the browser). The standard zero-cost option is a Cloudflare Worker such as
-# https://github.com/sveltia/sveltia-cms-auth — deploy it, then set base_url
-# below to that worker's URL. Until that's deployed, run the CMS locally against
-# the `local_backend` option (see README) instead of `/admin/` in production.
+# OAuth provider: shared with CenTex Press. Both publications authenticate
+# through the same Cloudflare Worker (repo cryptoqueen23/CenTexPress,
+# workers/cms-auth) rather than each running its own — it's generic (gated
+# only by an ALLOWED_DOMAINS allowlist on the worker side, not by any
+# CenTex-specific code) and one shared OAuth app is less to maintain than
+# one per publication. If you ever add a third Sveltia-backed site, add its
+# domain to that worker's ALLOWED_DOMAINS var rather than deploying another.
 
 backend:
   name: github
   repo: cryptoqueen23/wmag
   branch: main
-  # base_url: https://your-oauth-worker.workers.dev
+  base_url: https://centex-press-cms-auth.truewolfflix777.workers.dev
 
 local_backend: true
 

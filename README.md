@@ -26,7 +26,9 @@ npx sveltia-cms-proxy-server &
 npm run dev
 ```
 
-Then open `http://localhost:4321/admin/` — `local_backend: true` in `public/admin/config.yml` routes commits through the local proxy so you can edit content without a hosted OAuth provider. For production editing, deploy a small OAuth worker (see the comment at the top of `config.yml`) and set `base_url` there; Cloudflare Workers is the free option that matches this project's stack.
+Then open `http://localhost:4321/admin/` — `local_backend: true` in `public/admin/config.yml` routes commits through the local proxy so you can edit content without a hosted OAuth provider.
+
+Production editing at `wmag.pages.dev/admin/` authenticates through the OAuth worker shared with CenTex Press (`cryptoqueen23/CenTexPress`, `workers/cms-auth`) — it's a generic GitHub OAuth proxy, not CenTex-specific, gated only by an allowlist var on that worker. Don't deploy a second one for this project; if a third Sveltia-backed site ever needs auth, add its domain to that worker's `ALLOWED_DOMAINS` instead.
 
 ## Design system
 

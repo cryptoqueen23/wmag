@@ -149,10 +149,10 @@ main{padding:0 5vw}
 .newsletter .eyebrow{color:var(--gold)}
 .newsletter h2{font-size:38px;font-weight:600;line-height:1.05;margin:0 0 12px}
 .newsletter p{font-size:17px;color:rgba(246,241,231,.8);margin:0}
-.newsletter form{display:flex;flex-direction:column;gap:14px}
-.newsletter input{padding:16px 18px;border:1px solid rgba(246,241,231,.35);background:transparent;color:var(--paper);font:16px var(--font-sans);border-radius:2px}
-.newsletter input::placeholder{color:rgba(246,241,231,.6)}
-.newsletter button{padding:16px 20px;border:0;background:var(--brass-deep);color:var(--paper);font:600 13px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;border-radius:2px}
+.newsletter-unavailable{border:1px solid rgba(246,241,231,.35);padding:22px 24px;border-radius:2px}
+.newsletter-unavailable p{margin:0}
+.newsletter-unavailable p:first-child{font:600 15px var(--font-sans);letter-spacing:.02em;color:var(--paper)}
+.newsletter-unavailable p.newsletter-fineprint{margin-top:8px;font-size:14px;color:rgba(246,241,231,.65)}
 
 /* Ad slot — structurally separate from editorial; renders nothing when empty */
 .ad-slot{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:22px 0;margin:0 0 88px}
